@@ -19,4 +19,6 @@ https://console.firebase.google.com/u/3/project/auth-development-2bea5/overview
   - Build >> Authentication >> Sign-in method >> email/pw: enabled
   - Build >> Authentication >> Authorized domains >> localhost: delete
 
-## 3)
+## 3) Existing files and folder refatoring
+
+- > > components >> mkdir Authentication

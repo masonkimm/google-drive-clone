@@ -5,40 +5,33 @@ import { Container } from 'react-bootstrap';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Signup from './Signup';
-import Login from './Login';
-import Dashboard from './Dashboard';
-import PrivateRoute from './PrivateRoute';
-import ForgotPassword from './ForgotPassword';
-import UpdateProfile from './UpdateProfile';
+import Signup from './Authentication/Signup';
+import Login from './Authentication/Login';
+import Profile from './Authentication/Profile';
+import PrivateRoute from './Authentication/PrivateRoute';
+import ForgotPassword from './Authentication/ForgotPassword';
+import UpdateProfile from './Authentication/UpdateProfile';
+// import CenteredContainer from './Authentication/CenteredContainer';
 
 function App() {
   return (
-    <AuthProvider>
-      <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: '100vh' }}
-      >
-        <div className="w-100" style={{ maxWidth: '400px' }}>
-          <h1 className="text-center mb-5">React-Authentication</h1>
-          <Router>
-            <AuthProvider>
-              <Switch>
-                <PrivateRoute exact path="/" component={Dashboard} />
-                <PrivateRoute
-                  path="/update-profile"
-                  component={UpdateProfile}
-                />
-                <Route path="/signup" component={Signup} />
-                <Route path="/login" component={Login} />
-                <Route path="/forgot-password" component={ForgotPassword} />
-              </Switch>
-            </AuthProvider>
-          </Router>
-        </div>
+    <>
+      <>
+        <Router>
+          <AuthProvider>
+            <Switch>
+              <PrivateRoute exact path="/" component={Profile} />
+              <PrivateRoute path="/update-profile" component={UpdateProfile} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Route path="/forgot-password" component={ForgotPassword} />
+            </Switch>
+          </AuthProvider>
+        </Router>
+
         <img src={logo} className="App-logo" alt="logo" />
-      </Container>
-    </AuthProvider>
+      </>
+    </>
   );
 }
 
