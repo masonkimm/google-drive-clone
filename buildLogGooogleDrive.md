@@ -43,3 +43,5 @@ https://console.firebase.google.com/u/3/project/auth-development-2bea5/overview
 - firebase.js>> refactor database information
 - create database in firestore
 - set output info
+
+## 7) src>> mkdir hooks>> touch useFolder.js
