@@ -23,11 +23,17 @@ export default function AddFolderBtn({ currentFolder }) {
 
     if (currentFolder == null) return;
 
+    const path = [...currentFolder.path];
+
+    if (currentFolder !== ROOT_FOLDER) {
+      path.push({ name: currentFolder.name, id: currentFolder.id });
+    }
+
     database.folders.add({
       name: name,
       parentId: currentFolder.id,
       userId: currentUser.uid,
-      // path,
+      path: path,
       createdAt: database.getCurrentTimeStamp(),
     });
     setName('');

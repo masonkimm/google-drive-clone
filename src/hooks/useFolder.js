@@ -8,7 +8,7 @@ const ACTIONS = {
   SET_CHILD_FOLDERS: 'set-child-folder',
 };
 
-const ROOT_FOLDER = { name: 'Root', id: null, path: [] };
+export const ROOT_FOLDER = { name: 'Root', id: null, path: [] };
 
 function reducer(state, { type, payload }) {
   switch (type) {
@@ -85,18 +85,16 @@ export function useFolder(folderId = null, folder = null) {
 
   useEffect(() => {
     //firebase format
-    return (
-      database.folders
-        .where('parentId', '==', folderId)
-        .where('userId', '==', currentUser.uid)
-        // .orderBy('createdAt')
-        .onSnapshot((snapshot) => {
-          dispatch({
-            type: ACTIONS.SET_CHILD_FOLDERS,
-            payload: { childFolders: snapshot.docs.map(database.formatDoc) },
-          });
-        })
-    );
+    return database.folders
+      .where('parentId', '==', folderId)
+      .where('userId', '==', currentUser.uid)
+      .orderBy('createdAt')
+      .onSnapshot((snapshot) => {
+        dispatch({
+          type: ACTIONS.SET_CHILD_FOLDERS,
+          payload: { childFolders: snapshot.docs.map(database.formatDoc) },
+        });
+      });
   }, [folderId, currentUser]);
 
   return state;
