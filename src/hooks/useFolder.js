@@ -6,6 +6,7 @@ const ACTIONS = {
   UPDATE_FOLDER: 'update-folder',
   SELECT_FOLDER: 'select-folder',
   SET_CHILD_FOLDERS: 'set-child-folder',
+  SET_CHILD_Files: 'set-child-files',
 };
 
 export const ROOT_FOLDER = { name: 'Root', id: null, path: [] };
@@ -28,6 +29,11 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         childFolders: payload.childFolders,
+      };
+    case ACTIONS.SET_CHILD_FILES:
+      return {
+        ...state,
+        childFiles: payload.childFiles,
       };
     default:
       return state;
@@ -84,6 +90,7 @@ export function useFolder(folderId = null, folder = null) {
       });
   }, [folderId]);
 
+  //to retrieve folders
   useEffect(() => {
     //firebase format
     return database.folders
@@ -96,6 +103,23 @@ export function useFolder(folderId = null, folder = null) {
           payload: { childFolders: snapshot.docs.map(database.formatDoc) },
         });
       });
+  }, [folderId, currentUser]);
+
+  //to retrieve files
+  useEffect(() => {
+    //firebase format
+    return (
+      database.files
+        .where('folderId', '==', folderId)
+        .where('userId', '==', currentUser.uid)
+        // .orderBy('createdAt')
+        .onSnapshot((snapshot) => {
+          dispatch({
+            type: ACTIONS.SET_CHILD_FILES,
+            payload: { childFiles: snapshot.docs.map(database.formatDoc) },
+          });
+        })
+    );
   }, [folderId, currentUser]);
 
   return state;

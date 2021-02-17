@@ -59,11 +59,11 @@ export default function AddFolderBtn({ currentFolder }) {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="outline-danger" onClick={closeModal}>
-              Cancel
-            </Button>
             <Button variant="outline-primary" type="submit">
               Save
+            </Button>
+            <Button variant="outline-danger" onClick={closeModal}>
+              Cancel
             </Button>
           </Modal.Footer>
         </Form>

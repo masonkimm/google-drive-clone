@@ -36,6 +36,9 @@ export default function Profile() {
         <Button variant="link" onClick={handleLogOut}>
           Log Out
         </Button>
+        <Button as={Link} to="/" variant="outline-danger">
+          Cancel
+        </Button>
       </div>
     </CenteredContainer>
   );
